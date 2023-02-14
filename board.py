@@ -65,6 +65,7 @@ class GameBoard:
 
     def reveal(self, i, j):
         if self.board[i][j].is_mine:
+            self.board[i][j].reveal()
             return False
         self.board[i][j].reveal()
         return True
@@ -92,7 +93,13 @@ class GameBoard:
                 if not self.board[i][j].is_mine and not self.board[i][j].is_revealed:
                     return False
         return True
-
+    
+    def is_mine_revealed(self):
+        for i in range(self.size):
+            for j in range(self.size):
+                if self.board[i][j].is_mine and self.board[i][j].is_revealed:
+                    return True
+        return False
     def __str__(self):
         separator = " | "
         top_line = "    " + separator.join(str(i) for i in range(self.size))
